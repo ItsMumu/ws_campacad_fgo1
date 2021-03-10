@@ -19,6 +19,7 @@ public class BooksRO implements Serializable {
     private String nom;
 
 
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn( name="autor_id" )
     private AutorRO auteur;
@@ -26,15 +27,19 @@ public class BooksRO implements Serializable {
     @Column(name="date")
     private String date;
 
+    @Column(name="stock")
+    private int stock;
+
     //default constructor
     public BooksRO(){ }
 
-    public BooksRO(String nom, AutorRO auteur, String date,int id){
+    public BooksRO(String nom, AutorRO auteur, String date,int id, int stock){
 
         this.nom = nom;
         this.auteur = auteur;
         this.date = date;
         this.id = id;
+        this.stock = stock;
     }
 
     public String getNom() {
@@ -67,5 +72,13 @@ public class BooksRO implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 }

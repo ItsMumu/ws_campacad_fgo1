@@ -31,7 +31,7 @@ public class BooksService {
     @Transactional
     public void updateBook(BooksRO book){
 
-       dao.updateBook(book.getNom(), book.getAuteur(), book.getDate(), book.getId());
+       dao.updateBook(book.getNom(), book.getDate(), book.getId(), book.getStock());
 
     }
 
@@ -46,6 +46,17 @@ public class BooksService {
         bookToReturn = dao.findBookById(id);
 
         return bookToReturn;
+    }
+
+    @Transactional
+    public void updateStock(String id){
+        BooksRO book = dao.findBookById(Integer.parseInt(id));
+
+        if(book != null && book.getStock() > 0){
+            book.setStock(book.getStock()-1);
+            dao.updateStock(book.getStock(), book.getId());
+        }
+
     }
 
 }

@@ -12,8 +12,8 @@ import org.springframework.stereotype.Repository;
 public interface BooksDAO extends JpaRepository<BooksRO, Long> {
 
     @Modifying
-    @Query(value = "UPDATE public.book set nom =:nom, auteur =:auteur, date =:date where id = :id", nativeQuery = true)
-    public void updateBook(@Param("nom") String nom, @Param("auteur") AutorRO auteur, @Param("date") String date, @Param("id") int id);
+    @Query(value = "UPDATE public.book set nom =:nom, date =:date , stock =:stock where id = :id", nativeQuery = true)
+    public void updateBook(@Param("nom") String nom, @Param("date") String date, @Param("id") int id, @Param("stock") int stock);
 
     @Query("select b from BooksRO b where b.id = :id")
     public BooksRO findBookById(@Param("id") int id);
@@ -21,4 +21,8 @@ public interface BooksDAO extends JpaRepository<BooksRO, Long> {
     @Modifying
     @Query(value = "DELETE FROM public.book WHERE id = :id" , nativeQuery = true)
     public void deleteBook(@Param("id") int id);
+
+    @Modifying
+    @Query(value="UPDATE public.book set stock=:stock where id=:id", nativeQuery = true)
+    public void updateStock(@Param("stock") int stock, @Param("id") int id);
 }
